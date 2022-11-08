@@ -14,6 +14,10 @@ class ContactsRepository {
   async findAll() {
     return contacts;
   }
+
+  async findById(id) {
+    return contacts.find((contact) => contact.id === id);
+  }
 }
 
 export default new ContactsRepository();

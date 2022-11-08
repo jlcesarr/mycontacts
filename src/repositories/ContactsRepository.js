@@ -24,14 +24,14 @@ class ContactsRepository {
   }
 
   async create({
-    name, email, phone, categoryId,
+    name, email, phone, category_id,
   }) {
     const newContact = {
       id: v4(),
       name,
       email,
       phone,
-      categoryId,
+      category_id,
     };
     contacts.push(newContact);
     return newContact;

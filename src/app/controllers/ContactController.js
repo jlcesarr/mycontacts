@@ -42,7 +42,7 @@ class ContactController {
 
   async store(request, response) {
     const {
-      name, email, phone, category_id: categoryId,
+      name, email, phone, category_id,
     } = request.body;
 
     if (!name) {
@@ -58,7 +58,7 @@ class ContactController {
     }
 
     const contact = await contactsRepository.create({
-      name, email, phone, categoryId,
+      name, email, phone, category_id,
     });
 
     return response.json(contact);

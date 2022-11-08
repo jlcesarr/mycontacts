@@ -1,0 +1,23 @@
+{
+  "name": "mycontacts",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "author": "Julio Cesar <jcesarpereira2021@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "3.3.0",
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
+    "commitizen": "^4.2.5",
+    "husky": "^8.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

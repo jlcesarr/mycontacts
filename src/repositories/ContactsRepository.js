@@ -40,6 +40,16 @@ class ContactsRepository {
   async delete(id) {
     contacts = contacts.filter((contact) => contact.id !== id);
   }
+
+  async update(id, partialContact) {
+    const updatedContact = Object
+      .keys(partialContact)
+      .reduce((acc, key) => (partialContact[key] ? { ...acc, [key]: partialContact[key] } : acc), {});
+
+    contacts = contacts.map((contact) => (contact.id === id ? { ...contact, ...updatedContact } : contact));
+
+    return contacts.filter((contact) => contact.id === id);
+  }
 }
 
 export default new ContactsRepository();

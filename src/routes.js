@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import { Router } from 'express';
 import ContactController from './app/controllers/ContactController.js';
 

@@ -13,5 +13,6 @@ module.exports = {
     'class-methods-use-this': 'off',
     'import/prefer-default-export': 'off',
     camelcase: 'off',
+    'max-len': 'off',
   },
 };

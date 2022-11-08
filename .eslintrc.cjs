@@ -9,5 +9,8 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  rules: {},
+  rules: {
+    'class-methods-use-this': 'off',
+    'import/prefer-default-export': 'off',
+  },
 };

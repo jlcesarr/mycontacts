@@ -19,6 +19,24 @@ class ContactsRepository {
     return contacts.find((contact) => contact.id === id);
   }
 
+  async findByEmail(email) {
+    return contacts.find((contact) => contact.email === email);
+  }
+
+  async create({
+    name, email, phone, categoryId,
+  }) {
+    const newContact = {
+      id: v4(),
+      name,
+      email,
+      phone,
+      categoryId,
+    };
+    contacts.push(newContact);
+    return newContact;
+  }
+
   async delete(id) {
     contacts = contacts.filter((contact) => contact.id !== id);
   }

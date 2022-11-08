@@ -6,7 +6,8 @@
   "author": "Julio Cesar <jcesarpereira2021@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "dev": "nodemon src/index.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",

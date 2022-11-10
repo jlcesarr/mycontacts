@@ -1,54 +1,43 @@
-import { v4 } from 'uuid';
-
-let contacts = [
-  {
-    id: v4(),
-    name: 'Mateus',
-    email: 'mateus@mail.com',
-    phone: '123123123',
-    category_id: v4(),
-  },
-];
+/* eslint-disable import/extensions */
+import * as db from '../database/index.js';
 
 class ContactsRepository {
-  async findAll() {
-    return contacts;
+  async findAll(orderBy = 'ASC') {
+    const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
+    const rows = await db.execQuery(`SELECT * FROM contacts ORDER BY name ${direction}`);
+    return rows;
   }
 
   async findById(id) {
-    return contacts.find((contact) => contact.id === id);
+    const [row] = await db.execQuery('SELECT * FROM contacts WHERE id = $1', [id]);
+    return row;
   }
 
   async findByEmail(email) {
-    return contacts.find((contact) => contact.email === email);
+    const [row] = await db.execQuery('SELECT * FROM contacts WHERE email = $1', [email]);
+    return row;
   }
 
   async create({
     name, email, phone, category_id,
   }) {
-    const newContact = {
-      id: v4(),
-      name,
-      email,
-      phone,
-      category_id,
-    };
-    contacts.push(newContact);
-    return newContact;
+    const [row] = await db.execQuery(
+      'INSERT INTO contacts(name, email, phone, category_id) VALUES($1, $2, $3, $4) RETURNING *',
+      [name, email, phone, category_id],
+    );
+    return row;
   }
 
   async delete(id) {
-    contacts = contacts.filter((contact) => contact.id !== id);
+    const deleteOp = await db.execQuery('DELETE FROM contacts WHERE id = $1', [id]);
+    return deleteOp;
   }
 
-  async update(id, partialContact) {
-    const updatedContact = Object
-      .keys(partialContact)
-      .reduce((acc, key) => (partialContact[key] ? { ...acc, [key]: partialContact[key] } : acc), {});
-
-    contacts = contacts.map((contact) => (contact.id === id ? { ...contact, ...updatedContact } : contact));
-
-    return contacts.filter((contact) => contact.id === id);
+  async update(id, {
+    name, email, phone, category_id,
+  }) {
+    const [row] = await db.execQuery('UPDATE contacts SET name = $2, email= $3, phone= $4, category_id = $5 WHERE id = $1 RETURNING *', [id, name, email, phone, category_id]);
+    return row;
   }
 }
 

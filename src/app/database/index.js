@@ -10,7 +10,7 @@ const client = new pg.Client({
 
 client.connect();
 
-export async function execQuery(query) {
-  const { rows } = await client.query(query);
+export async function execQuery(query, values) {
+  const { rows } = await client.query(query, values);
   return rows;
 }

@@ -4,12 +4,23 @@ import * as db from '../database/index.js';
 class ContactsRepository {
   async findAll(orderBy = 'ASC') {
     const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
-    const rows = await db.execQuery(`SELECT * FROM contacts ORDER BY name ${direction}`);
+    const rows = await db.execQuery(`
+      SELECT contacts.*, categories.name AS category_name
+      FROM contacts
+      LEFT JOIN categories ON categories.id = category_id
+      ORDER BY contacts.name ${direction}
+    `);
     return rows;
   }
 
   async findById(id) {
-    const [row] = await db.execQuery('SELECT * FROM contacts WHERE id = $1', [id]);
+    // id / name
+    const [row] = await db.execQuery(`
+      SELECT contacts.*, categories.name AS category_name
+      FROM contacts
+      LEFT JOIN categories ON categories.id = contacts.category_id
+      WHERE contacts.id = $1
+    `, [id]);
     return row;
   }
 

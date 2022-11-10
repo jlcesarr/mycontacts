@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import ContactsRepository from '../../repositories/ContactsRepository.js';
+import ContactsRepository from '../repositories/ContactsRepository.js';
 
 class ContactController {
   async index(request, response) {

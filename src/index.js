@@ -1,4 +1,5 @@
 /* eslint-disable import/extensions */
+
 import express from 'express';
 import 'express-async-errors';
 import { router as routes } from './routes.js';
